@@ -51,7 +51,6 @@
             position: relative;
         }
 
-        /* شريط علوي لتسجيل الدخول والترجمة */
         .top-bar {
             width: 100%;
             display: flex;
@@ -99,7 +98,6 @@
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
         }
 
-        /* حاوية القمر والفقاعات الأربع المحيطة به */
         .moon-area-wrapper {
             position: relative;
             width: 240px;
@@ -121,29 +119,6 @@
             z-index: 3;
         }
 
-        .moon-wrapper::after {
-            content: '';
-            position: absolute;
-            inset: -4px;
-            border-radius: 50%;
-            padding: 3px;
-            background: conic-gradient(from 0deg, transparent 0%, transparent 70%, #ffffff 90%, #ffffff 100%);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .moon-wrapper.animate::after {
-            animation: rotateLight 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-
-        @keyframes rotateLight {
-            0% { opacity: 1; transform: rotate(0deg); }
-            100% { opacity: 1; transform: rotate(360deg); }
-        }
-
         .moon {
             width: 72px;
             height: 72px;
@@ -161,7 +136,6 @@
             box-shadow: 0 0 40px rgba(255, 255, 255, 0.95);
         }
 
-        /* الفقاعات الأربع الشفافة حول القمر */
         .side-bubbles-container {
             position: absolute;
             inset: 0;
@@ -191,7 +165,6 @@
             text-align: center;
             padding: 4px;
             box-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
-            animation: pulseGlow 2s infinite;
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s;
         }
 
@@ -214,13 +187,6 @@
             line-height: 1.2;
         }
 
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 8px rgba(255, 255, 255, 0.1), inset 0 0 3px rgba(255, 255, 255, 0.05); }
-            50% { box-shadow: 0 0 18px rgba(255, 255, 255, 0.35), inset 0 0 6px rgba(255, 255, 255, 0.15); }
-            100% { box-shadow: 0 0 8px rgba(255, 255, 255, 0.1), inset 0 0 3px rgba(255, 255, 255, 0.05); }
-        }
-
-        /* شريط البحث */
         .search-box {
             width: 100%;
             max-width: 480px;
@@ -236,23 +202,12 @@
             margin-bottom: 10px;
         }
 
-        .search-box::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .search-box:focus {
-            background: rgba(255, 255, 255, 0.12);
-            border-color: #ffffff;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5), inset 0 0 8px rgba(255, 255, 255, 0.2);
-        }
-
         .main-search-wrapper {
             position: relative;
             width: 100%;
             max-width: 480px;
         }
 
-        /* قسم البحر في الأسفل */
         .footer-section {
             width: 100%;
             background: #0b0f19;
@@ -299,213 +254,11 @@
             100% { transform: translateX(0); }
         }
 
-        /* ================= نوافذ الألعاب الشفافة والمنبثقة ================= */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(11, 15, 25, 0.6);
-            backdrop-filter: blur(8px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 200;
-            padding: 15px;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .game-modal-card {
-            width: 100%;
-            max-width: 380px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(16px);
-            border-radius: 20px;
-            padding: 22px;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-            animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        @keyframes modalPop {
-            0% { transform: scale(0.8); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .modal-header {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-            padding-bottom: 10px;
-        }
-
-        .modal-title {
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: #ffffff;
-        }
-
-        .close-modal-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: #ffffff;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
-            transition: all 0.2s;
-        }
-
-        .close-modal-btn:hover {
-            background: rgba(255, 77, 79, 0.3);
-            border-color: #ff4d4f;
-        }
-
-        /* تنسيق لعبة إكس - أو داخل النافذة الشفافة */
-        .xo-board {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            width: 240px;
-            height: 240px;
-            margin: 10px 0;
-        }
-
-        .xo-cell {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.2s;
-            color: #fff;
-        }
-
-        .xo-cell:hover {
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .game-status-text {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.8);
-            margin-top: 10px;
-            text-align: center;
-        }
-
-        .restart-btn {
-            margin-top: 12px;
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: #ffffff;
-            padding: 6px 16px;
-            border-radius: 15px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: background 0.2s;
-        }
-
-        .restart-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-        }
-
-        /* تنسيق لعبة حل الألغاز السريعة */
-        .puzzle-question {
-            font-size: 0.95rem;
-            text-align: center;
-            margin-bottom: 15px;
-            line-height: 1.4;
-            color: #fff;
-        }
-
-        .puzzle-options {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            width: 100%;
-        }
-
-        .puzzle-option-btn {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 10px 15px;
-            border-radius: 12px;
-            color: #fff;
-            cursor: pointer;
-            font-size: 0.9rem;
-            text-align: right;
-            transition: all 0.2s;
-        }
-
-        .puzzle-option-btn:hover {
-            background: rgba(255, 255, 255, 0.18);
-            border-color: #fff;
-        }
-
-        /* تنسيق لعبة تفادي السيارات المصغرة */
-        .car-game-canvas-wrap {
-            position: relative;
-            width: 260px;
-            height: 320px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #carGameCanvas {
-            background: #111520;
-            display: block;
-        }
-
-        .car-controls {
-            display: flex;
-            gap: 15px;
-            margin-top: 10px;
-            width: 100%;
-            justify-content: center;
-        }
-
-        .car-ctrl-btn {
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            padding: 8px 22px;
-            border-radius: 10px;
-            font-size: 1rem;
-            cursor: pointer;
-        }
-
-        .car-ctrl-btn:active {
-            background: rgba(255, 255, 255, 0.35);
-        }
-
-        /* ================= صفحة النماذج ثلاثية الأبعاد ================= */
         .models-page {
             position: fixed;
             inset: 0;
             width: 100vw;
             height: 100vh;
-            height: 100dvh;
             background: #0b0f19;
             color: #fff;
             display: none;
@@ -530,7 +283,6 @@
             font-weight: bold;
             letter-spacing: 3px;
             margin: 10px 0 18px;
-            text-shadow: 0 0 10px rgba(255,255,255,.25);
         }
 
         .models-search {
@@ -561,165 +313,16 @@
             border: 1px solid rgba(255,255,255,.16);
             border-radius: 18px;
             padding: 20px;
-            min-height: 150px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             backdrop-filter: blur(8px);
-            transition: .25s ease;
-        }
-
-        .model-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(255,255,255,.4);
-            box-shadow: 0 0 22px rgba(255,255,255,.1);
         }
 
         .model-card.hidden { display: none; }
-        .model-icon { font-size: 2.2rem; margin-bottom: 8px; }
         .model-name { font-size: 1.15rem; font-weight: bold; }
         .model-desc { color: rgba(255,255,255,.55); font-size: .82rem; margin: 6px 0 14px; }
 
-
-        /* معاينة مصغرة للنموذج داخل بطاقة المسدس */
-        .pistol-card {
-            min-height: 190px;
-            padding: 0;
-            overflow: hidden;
-            display: grid;
-            grid-template-columns: 48% 52%;
-            direction: ltr;
-        }
-
-        .pistol-preview {
-            position: relative;
-            min-height: 190px;
-            overflow: hidden;
-            background: radial-gradient(circle at 50% 45%, rgba(255,255,255,.14), rgba(255,255,255,.025) 55%, transparent 75%);
-        }
-
-        .pistol-preview::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, transparent 35%, rgba(11,15,25,.88) 100%);
-            pointer-events: none;
-        }
-
-        #pistolThumb {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
-
-
-        #pistolThumbImage {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            object-position: center;
-            display: block;
-            opacity: .96;
-            filter: drop-shadow(0 10px 22px rgba(0,0,0,.45));
-        }
-
-        .pistol-preview::before {
-            content: '';
-            position: absolute;
-            width: 72%;
-            height: 58%;
-            left: 8%;
-            top: 21%;
-            background: rgba(255,255,255,.13);
-            filter: blur(30px);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        #pistolThumb { z-index: 1; }
-        #pistolThumbImage { z-index: 0; }
-
-        .pistol-card-info {
-            direction: rtl;
-            padding: 18px 16px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            min-width: 0;
-        }
-
-        .pistol-card-info .model-icon { font-size: 1.7rem; margin-bottom: 5px; }
-        .pistol-card-info .model-desc { margin-bottom: 12px; }
-
-        @media (max-width: 600px) {
-            .pistol-card { grid-template-columns: 45% 55%; }
-        }
-
-        .model-open-btn {
-            border: 1px solid rgba(255,255,255,.25);
-            background: rgba(255,255,255,.1);
-            color: #fff;
-            border-radius: 12px;
-            padding: 9px 14px;
-            cursor: pointer;
-            font-size: .9rem;
-        }
-
-        .model-open-btn:hover { background: rgba(255,255,255,.18); }
-
-        .models-empty {
-            display: none;
-            color: rgba(255,255,255,.6);
-            margin-top: 20px;
-        }
-
-        .models-empty.active { display: block; }
-
-        .models-back {
-            position: absolute;
-            top: 18px;
-            right: 25px;
-            z-index: 5;
-        }
-
-
-        /* نافذة استكشاف النموذج ثلاثي الأبعاد */
-        .explore-modal { position: fixed; inset: 0; z-index: 500; display: none; align-items: center; justify-content: center; padding: 24px; background: rgba(4,7,13,.72); backdrop-filter: blur(8px); }
-        .explore-modal.active { display: flex; }
-        .explore-box { width: min(760px, 94vw); height: min(620px, 86vh); background: #151922; border: 1px solid rgba(255,255,255,.18); border-radius: 24px; box-shadow: 0 25px 80px rgba(0,0,0,.55); overflow: hidden; position: relative; display:flex; flex-direction:column; }
-        .explore-head { height: 62px; display:flex; align-items:center; justify-content:space-between; padding: 0 18px; border-bottom:1px solid rgba(255,255,255,.1); direction:rtl; }
-        .explore-title-input { width:min(46vw,420px); background:transparent; border:1px solid transparent; color:#fff; font-size:1.1rem; font-weight:700; text-align:right; outline:none; padding:6px 8px; border-radius:10px; }
-        .explore-title-input:focus { border-color:rgba(255,255,255,.16); background:rgba(255,255,255,.04); }
-        .explore-close { border:1px solid rgba(255,255,255,.2); background:rgba(255,255,255,.08); color:#fff; border-radius:10px; padding:7px 12px; cursor:pointer; }
-        .explore-stage { flex:1; position:relative; background: radial-gradient(circle at 50% 45%, rgba(255,255,255,.12), rgba(255,255,255,.025) 48%, #0b0f17 82%); overflow:hidden; cursor:grab; }
-        .explore-stage.dragging { cursor:grabbing; }
-        #exploreCanvas { width:100%; height:100%; display:block; touch-action:none; }
-        .explore-actions { display:flex; align-items:center; gap:8px; direction:ltr; }
-        .explore-color-wrap { display:flex; align-items:center; gap:7px; padding:5px 8px; border:1px solid rgba(255,255,255,.18); border-radius:10px; background:rgba(255,255,255,.07); color:#fff; font-size:.8rem; cursor:pointer; }
-        .explore-color-wrap input { width:30px; height:24px; padding:0; border:0; border-radius:6px; background:transparent; cursor:pointer; }
-        .explore-reset { border:1px solid rgba(255,255,255,.2); background:rgba(255,255,255,.08); color:#fff; border-radius:10px; padding:7px 11px; cursor:pointer; }
-        .explore-reset:hover, .explore-close:hover { background:rgba(255,255,255,.16); }
-        .explore-help { position:absolute; left:50%; bottom:14px; transform:translateX(-50%); padding:7px 13px; border-radius:999px; background:rgba(0,0,0,.42); color:rgba(255,255,255,.8); font-size:.78rem; pointer-events:none; direction:rtl; white-space:nowrap; backdrop-filter:blur(5px); }
-        .explore-stage-wrap { flex:1; min-height:0; display:flex; flex-direction:column; }
-        .explore-materials { height:92px; display:flex; align-items:center; gap:10px; padding:10px 14px; border-top:1px solid rgba(255,255,255,.10); background:rgba(7,10,16,.92); direction:rtl; overflow-x:auto; }
-        .explore-material { width:66px; height:66px; flex:0 0 66px; border:1px solid rgba(255,255,255,.18); border-radius:10px; overflow:hidden; background:#20242d; cursor:pointer; position:relative; padding:0; }
-        .explore-material img { width:100%; height:100%; object-fit:cover; display:block; }
-        .explore-material.active { border-color: rgba(130,200,255,.9); box-shadow: 0 0 0 2px rgba(130,200,255,.16); }
-        .explore-material span { position:absolute; left:0; right:0; bottom:0; padding:3px 2px; font-size:9px; color:#fff; background:rgba(0,0,0,.58); text-align:center; white-space:nowrap; overflow:hidden; }
-        .explore-color-swatch { width:28px; height:28px; border-radius:8px; border:1px solid rgba(255,255,255,.4); cursor:pointer; flex:0 0 28px; box-shadow:0 2px 8px rgba(0,0,0,.3); }
-        .explore-materials-label { font-size:.75rem; color:rgba(255,255,255,.65); margin-left:3px; white-space:nowrap; }
-        .explore-play-btn { border:1px solid rgba(255,255,255,.22); background:rgba(255,255,255,.08); color:#fff; border-radius:10px; padding:8px 13px; cursor:pointer; font-size:.8rem; white-space:nowrap; transition:.2s; }
-        .explore-play-btn:hover { background:rgba(255,255,255,.16); }
-        .explore-play-btn.playing { background:rgba(82,196,26,.18); border-color:rgba(82,196,26,.55); }
-
-        @media (max-width:600px){ .explore-modal{padding:10px}.explore-box{height:82vh;border-radius:18px}.explore-head{height:54px}.explore-help{font-size:.7rem} }
-
-        /* ================= واجهة الاستوديو ثلاثي الأبعاد المدمجة ================= */
         .studio-view {
             position: fixed;
             inset: 0;
@@ -729,9 +332,7 @@
             z-index: 100;
         }
 
-        .studio-view.active {
-            display: flex;
-        }
+        .studio-view.active { display: flex; }
 
         #canvas-container {
             position: fixed;
@@ -754,107 +355,6 @@
             z-index: 10;
         }
 
-        .studio-logo {
-            font-size: 1.5rem;
-            letter-spacing: 3px;
-            font-weight: bold;
-            color: #ffffff;
-        }
-
-        .studio-search-box {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            padding: 8px 15px;
-            color: #fff;
-            font-size: 0.9rem;
-            width: 280px;
-            outline: none;
-            text-align: right;
-        }
-
-        .studio-search-wrap {
-            position: relative;
-            width: 280px;
-            z-index: 60;
-        }
-
-        .studio-search-box { width: 100%; box-sizing: border-box; }
-
-        .studio-search-results {
-            position: absolute;
-            top: calc(100% + 8px);
-            left: 0;
-            right: 0;
-            display: none;
-            flex-direction: column;
-            gap: 6px;
-            padding: 8px;
-            border-radius: 14px;
-            background: rgba(18, 21, 28, 0.98);
-            border: 1px solid rgba(255,255,255,.14);
-            box-shadow: 0 14px 30px rgba(0,0,0,.45);
-            backdrop-filter: blur(14px);
-            max-height: 280px;
-            overflow-y: auto;
-        }
-
-        .studio-search-results.active { display: flex; }
-
-        .studio-search-result {
-            width: 100%;
-            border: 1px solid rgba(255,255,255,.10);
-            border-radius: 10px;
-            padding: 9px 12px;
-            background: rgba(255,255,255,.06);
-            color: #fff;
-            cursor: pointer;
-            text-align: right;
-            font: inherit;
-            transition: background .15s ease, border-color .15s ease, transform .15s ease;
-        }
-
-        .studio-search-result:hover {
-            background: rgba(255,255,255,.12);
-            border-color: rgba(255,255,255,.22);
-            transform: translateY(-1px);
-        }
-
-        .studio-search-empty {
-            padding: 10px 12px;
-            color: rgba(255,255,255,.58);
-            font-size: .85rem;
-            text-align: center;
-        }
-
-        .studio-model-quick-list {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 8px;
-            margin-top: 8px;
-        }
-
-        .studio-model-quick-btn {
-            border: 1px solid rgba(255,255,255,.12);
-            border-radius: 11px;
-            padding: 9px 8px;
-            background: rgba(255,255,255,.05);
-            color: #fff;
-            cursor: pointer;
-            font: inherit;
-            font-size: .82rem;
-            line-height: 1.25;
-            text-align: center;
-        }
-
-        .studio-model-quick-btn:hover { background: rgba(255,255,255,.11); }
-
-        @media (max-width: 900px) {
-            .header-top { flex-wrap: wrap; gap: 10px; }
-            .studio-search-wrap { width: min(100%, 320px); order: 3; margin-inline: auto; }
-            .studio-search-results { left: 0; right: 0; }
-        }
-
         .tools-sidebar {
             position: fixed;
             top: 80px;
@@ -862,7 +362,6 @@
             width: 320px;
             background: rgba(18, 21, 28, 0.95);
             backdrop-filter: blur(15px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             z-index: 20;
             display: flex;
             flex-direction: column;
@@ -872,249 +371,33 @@
             max-height: calc(100vh - 100px);
             overflow-y: auto;
         }
-
-        .sidebar-title {
-            font-size: 1.1rem;
-            color: #fff;
-            margin-bottom: 15px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 10px;
-            text-align: center;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .close-studio-btn {
-            background: rgba(255, 77, 79, 0.2);
-            border: 1px solid #ff4d4f;
-            color: #fff;
-            padding: 4px 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.75rem;
-        }
-
-        .tool-group {
-            margin-bottom: 14px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            padding: 10px;
-            border-radius: 10px;
-        }
-
-        .tool-group label {
-            display: block;
-            margin-bottom: 6px;
-            font-size: 0.85rem;
-            color: #82c8ff;
-            font-weight: bold;
-        }
-
-        .suggestions-list {
-            font-size: 0.75rem;
-            color: #b0c4de;
-            margin-top: 4px;
-            line-height: 1.4;
-        }
-
-        .upload-file-label {
-            display: block;
-            background: rgba(58, 123, 213, 0.2);
-            border: 2px dashed rgba(58, 123, 213, 0.6);
-            padding: 8px;
-            text-align: center;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.85rem;
-        }
-
-        #fileInput { display: none; }
-
-        .color-palette {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-        }
-
-        .color-dot {
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 2px solid rgba(255,255,255,0.3);
-        }
-
-        .size-controls {
-            display: flex;
-            gap: 8px;
-        }
-
-        .size-btn, .action-btn {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: white;
-            padding: 8px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.85rem;
-            transition: background 0.2s;
-        }
-        .size-btn:hover, .action-btn:hover { background: rgba(58, 123, 213, 0.4); }
-
-        .range-slider { width: 100%; accent-color: #3a7bd5; }
-
-        .ai-status {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: rgba(18, 21, 28, 0.9);
-            padding: 10px 20px;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.9rem;
-            color: #82c8ff;
-            z-index: 20;
-        }
-
-        /* نافذة تسجيل الدخول والترجمة المنبثقة */
-        .auth-modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(11, 15, 25, 0.7);
-            backdrop-filter: blur(8px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 300;
-        }
-        .auth-modal.active { display: flex; }
-        .auth-card {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            padding: 25px;
-            border-radius: 20px;
-            width: 320px;
-            text-align: center;
-            backdrop-filter: blur(15px);
-        }
-        .auth-btn {
-            width: 100%;
-            padding: 10px;
-            margin: 8px 0;
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.3);
-            background: rgba(255,255,255,0.12);
-            color: #fff;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.2s;
-        }
-        .auth-btn:hover { background: rgba(255,255,255,0.25); }
-
-        /* ================= نظام إنشاء ونشر المشروع ================= */
-        .project-meta-title { font-size:.86rem; font-weight:700; color:#82c8ff; margin-bottom:8px; }
-        .project-input, .project-textarea {
-            width:100%; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.16);
-            color:#fff; border-radius:9px; padding:9px 10px; outline:none; font-size:.83rem;
-            text-align:right; margin-bottom:8px; resize:vertical;
-        }
-        .project-input:focus, .project-textarea:focus { border-color:rgba(130,200,255,.75); background:rgba(255,255,255,.09); }
-        .project-textarea { min-height:70px; }
-        .drop-zone {
-            border:2px dashed rgba(130,200,255,.55); background:rgba(58,123,213,.12); border-radius:12px;
-            padding:14px 10px; text-align:center; cursor:pointer; transition:.2s ease; color:rgba(255,255,255,.82);
-        }
-        .drop-zone:hover, .drop-zone.drag-over { background:rgba(58,123,213,.24); border-color:#82c8ff; transform:translateY(-1px); }
-        .drop-zone strong { display:block; font-size:.85rem; margin-bottom:4px; }
-        .drop-zone small { display:block; color:rgba(255,255,255,.55); font-size:.72rem; line-height:1.4; }
-        .project-file-name { margin-top:7px; color:#9fe3b4; font-size:.74rem; text-align:center; min-height:17px; }
-        .project-actions { display:flex; gap:8px; margin-top:8px; }
-        .project-actions .action-btn { flex:1; }
-        .delete-project-btn { background:rgba(220,55,55,.12)!important; border-color:rgba(255,90,90,.32)!important; color:#ffb2b2!important; }
-        .delete-project-btn:hover { background:rgba(220,55,55,.22)!important; border-color:rgba(255,100,100,.55)!important; }
-        .publish-btn { background:linear-gradient(135deg, rgba(82,196,26,.24), rgba(58,123,213,.22)); border:1px solid rgba(82,196,26,.48); }
-        .publish-btn:hover { background:linear-gradient(135deg, rgba(82,196,26,.34), rgba(58,123,213,.3)); }
-        .project-toast {
-            position:fixed; left:50%; bottom:28px; transform:translate(-50%,20px); opacity:0; pointer-events:none;
-            z-index:1000; background:rgba(17,24,35,.96); border:1px solid rgba(130,200,255,.35);
-            color:#fff; padding:12px 18px; border-radius:14px; box-shadow:0 15px 40px rgba(0,0,0,.45); transition:.25s ease; font-size:.86rem;
-        }
-        .project-toast.active { opacity:1; transform:translate(-50%,0); }
-        .published-projects { margin-top:8px; color:rgba(255,255,255,.55); font-size:.72rem; line-height:1.55; }
-        .published-projects b { color:#fff; }
-        .project-animation-panel { margin-top:9px; padding:9px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.035); border-radius:10px; }
-        .project-animation-title { font-size:.78rem; color:#dfe8f2; margin-bottom:7px; font-weight:700; }
-        .animation-row { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
-        .animation-row .action-btn { padding:7px 5px; font-size:.74rem; }
-        .animation-speed { width:100%; margin-top:7px; }
-        .download-btn { background:rgba(130,200,255,.10)!important; border-color:rgba(130,200,255,.35)!important; }
-        .download-btn:hover { background:rgba(130,200,255,.20)!important; }
-        .studio-project-title {
-            min-width:180px; width:min(34vw,340px); background:rgba(255,255,255,.07);
-            border:1px solid rgba(255,255,255,.18); color:#fff; border-radius:18px;
-            padding:8px 14px; outline:none; text-align:right; font-size:.9rem;
-        }
-        .studio-project-title:focus { border-color:rgba(130,200,255,.75); box-shadow:0 0 0 3px rgba(130,200,255,.08); }
-        @media (max-width:760px){ .studio-project-title{width:150px;min-width:120px;font-size:.78rem;} }
-        .explore-loading { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(8,12,19,.30); pointer-events:none; z-index:4; }
-        .explore-loading-card { padding:10px 16px; border-radius:999px; background:rgba(0,0,0,.45); border:1px solid rgba(255,255,255,.13); color:rgba(255,255,255,.85); font-size:.8rem; backdrop-filter:blur(8px); }
-        .explore-loading.hidden { display:none; }
-        .car-restart-btn { margin-top:9px; width:100%; }
-        @media (max-width:600px){
-            .project-actions { flex-direction:column; }
-            .project-input, .project-textarea { font-size:.8rem; }
-        }
-    
-        /* v15: reliable 3D thumbnail fallback and visible model preview */
-        #pistolThumbImage { z-index: 2 !important; opacity: .98; pointer-events:none; transition:opacity .18s ease; }
-        #pistolThumb { z-index: 1 !important; position:absolute; inset:0; width:100%; height:100%; display:block; }
-        .pistol-preview { min-height:210px; }
-        .pistol-card-info { gap: 4px; }
-        .pistol-card-info .model-name, .pistol-card-info .model-desc { display:block !important; opacity:1 !important; visibility:visible !important; }
-
-        /* v16 fixes: model preview visibility and material buttons */
-        .pistol-card { width:100%; max-width:1050px; min-width:0; }
-        .pistol-preview { min-width:0; min-height:210px; }
-        .pistol-card-info { min-width:0; overflow:hidden; }
-        .pistol-card-info .model-name, .pistol-card-info .model-desc { display:block; }
     </style>
 </head>
 <body>
-    <div class="page-wrapper">
+
+    <div class="page-wrapper" id="mainHomePage">
         <div class="top-bar">
-            <button class="top-btn" id="authBtn">تسجيل الدخول</button>
-            <button class="top-btn" id="langBtn">English</button>
+            <button class="top-btn" id="openAuthModalBtn">تسجيل الدخول</button>
+            <button class="top-btn" id="openTranslateModalBtn">الترجمة</button>
         </div>
 
         <div class="main-container">
-            <div class="logo">TORYAK WR</div>
-            
+            <div class="logo">T O R Y A K &nbsp; W R</div>
+
             <div class="moon-area-wrapper">
-                <div class="side-bubbles-container" id="sideBubbles">
-                    <div class="side-bubble bubble-1" id="bubbleGame1">
-                        <span class="bubble-text">لعبة إكس-أو</span>
-                    </div>
-                    <div class="side-bubble bubble-2" id="bubbleGame2">
-                        <span class="bubble-text">ألغاز ذكية</span>
-                    </div>
-                    <div class="side-bubble bubble-3" id="bubbleGame3">
-                        <span class="bubble-text">تفاعل 3D</span>
-                    </div>
-                    <div class="side-bubble bubble-4" id="bubbleGame4">
-                        <span class="bubble-text">تفادي السيارات</span>
-                    </div>
+                <div class="moon-wrapper" id="moonWrapper">
+                    <div class="moon" id="toggleMoonBubbles" title="انقر لظهور الخيارات"></div>
                 </div>
 
-                <div class="moon-wrapper" id="moonWrapper">
-                    <div class="moon" id="mainMoon"></div>
+                <div class="side-bubbles-container" id="sideBubbles">
+                    <div class="side-bubble bubble-1" id="openStudioBtn">
+                        <div class="bubble-text">إنشاء مشروع (3D)</div>
+                    </div>
                 </div>
             </div>
 
             <div class="main-search-wrapper">
-                <input type="text" class="search-box" id="mainSearchInput" placeholder="ابحث عن مجسمات، ألعاب، أو أدوات..." autocomplete="off">
+                <input type="text" id="mainSearchBox" class="search-box" placeholder="ما الشيء الذي تريد البحث عنه؟" autocomplete="off">
             </div>
         </div>
 
@@ -1126,263 +409,54 @@
         </div>
     </div>
 
-    <!-- Modal Games -->
-    <div class="modal-overlay" id="xoModal">
-        <div class="game-modal-card">
-            <div class="modal-header">
-                <div class="modal-title">لعبة إكس - أو</div>
-                <button class="close-modal-btn" onclick="closeAllModals()">✕</button>
-            </div>
-            <div class="xo-board" id="xoBoard">
-                <div class="xo-cell" onclick="makeXOMove(0)"></div>
-                <div class="xo-cell" onclick="makeXOMove(1)"></div>
-                <div class="xo-cell" onclick="makeXOMove(2)"></div>
-                <div class="xo-cell" onclick="makeXOMove(3)"></div>
-                <div class="xo-cell" onclick="makeXOMove(4)"></div>
-                <div class="xo-cell" onclick="makeXOMove(5)"></div>
-                <div class="xo-cell" onclick="makeXOMove(6)"></div>
-                <div class="xo-cell" onclick="makeXOMove(7)"></div>
-                <div class="xo-cell" onclick="makeXOMove(8)"></div>
-            </div>
-            <div class="game-status-text" id="xoStatus">دور اللاعب: X</div>
-            <button class="restart-btn" onclick="resetXOGame()">إعادة اللعب</button>
+    <!-- نافذة الاستوديو الثلاثي الأبعاد المدمجة -->
+    <div class="studio-view" id="studioView">
+        <div class="header-top">
+            <div class="studio-logo">TORYAKW</div>
+            <button class="top-btn" id="closeStudioBtn">إغلاق الاستوديو</button>
         </div>
-    </div>
-
-    <!-- Models Page -->
-    <div class="models-page" id="modelsPage">
-        <div class="top-bar">
-            <button class="top-btn models-back" id="modelsBackBtn">العودة للرئيسية</button>
-        </div>
-        <div class="models-main">
-            <div class="models-title">معرض المجسمات</div>
-            <input type="text" class="models-search" id="modelsSearchInput" placeholder="ابحث في المجسمات...">
-            <div class="models-grid" id="modelsGrid">
-                <div class="model-card pistol-card">
-                    <div class="pistol-preview">
-                        <canvas id="pistolThumb"></canvas>
-                        <div id="pistolThumbImage"></div>
-                    </div>
-                    <div class="pistol-card-info">
-                        <div class="model-icon">🔫</div>
-                        <div class="model-name">مسدس ثلاثي الأبعاد</div>
-                        <div class="model-desc">مجسم تفاعلي دقيق مع خيارات تعديل المواد والألوان.</div>
-                        <button class="model-open-btn" onclick="openExploreModal('pistol')">استكشاف النموذج</button>
-                    </div>
-                </div>
-            </div>
-            <div class="models-empty" id="modelsEmpty">لا توجد نتائج مطابقة لبحثك.</div>
-        </div>
-    </div>
-
-    <!-- Explore Modal -->
-    <div class="explore-modal" id="exploreModal">
-        <div class="explore-box">
-            <div class="explore-head">
-                <input type="text" class="explore-title-input" id="exploreTitleInput" value="مسدس ثلاثي الأبعاد">
-                <div class="explore-actions">
-                    <button class="explore-reset" onclick="resetExploreCamera()">إعادة ضبط الكاميرا</button>
-                    <button class="explore-close" onclick="closeExploreModal()">إغلاق</button>
-                </div>
-            </div>
-            <div class="explore-stage-wrap">
-                <div class="explore-stage" id="exploreStage">
-                    <canvas id="exploreCanvas"></canvas>
-                    <div class="explore-loading" id="exploreLoading">
-                        <div class="explore-loading-card">جاري تحميل المجسم ثلاثي الأبعاد...</div>
-                    </div>
-                    <div class="explore-help">اسحب بالماوس أو الإصبع لتدوير المجسم</div>
-                </div>
-                <div class="explore-materials" id="exploreMaterials">
-                    <span class="explore-materials-label">المواد:</span>
-                    <button class="explore-material active" onclick="setExploreMaterial('metal')">
-                        <span>معدن لامع</span>
-                    </button>
-                    <button class="explore-material" onclick="setExploreMaterial('dark')">
-                        <span>أسود مطفي</span>
-                    </button>
-                    <button class="explore-material" onclick="setExploreMaterial('gold')">
-                        <span>ذهبي</span>
-                    </button>
-                    <div class="explore-color-wrap">
-                        <span>اللون:</span>
-                        <input type="color" id="exploreColorPicker" value="#888888" onchange="changeExploreColor(this.value)">
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div id="canvas-container"></div>
     </div>
 
     <script>
-        // تفاعلات القمر والفقاعات
-        const moonWrapper = document.getElementById('moonWrapper');
-        const mainMoon = document.getElementById('mainMoon');
-        const sideBubbles = document.getElementById('sideBubbles');
-        const modelsPage = document.getElementById('modelsPage');
-        const modelsBackBtn = document.getElementById('modelsBackBtn');
-        const mainSearchInput = document.getElementById('mainSearchInput');
-
-        let bubblesOpen = false;
-
-        mainMoon.addEventListener('click', () => {
-            moonWrapper.classList.add('animate');
-            setTimeout(() => moonWrapper.classList.remove('animate'), 800);
-            
-            bubblesOpen = !bubblesOpen;
-            if (bubblesOpen) {
-                sideBubbles.classList.add('active');
-            } else {
-                sideBubbles.classList.remove('active');
-            }
+        // تفعيل أزرار التفاعل الأساسية لفتح الاستوديو وعرض الصفحة
+        document.getElementById('toggleMoonBubbles').addEventListener('click', () => {
+            document.getElementById('sideBubbles').classList.toggle('active');
         });
 
-        // فتح الألعاب أو النماذج من الفقاعات
-        document.getElementById('bubbleGame1').addEventListener('click', () => {
-            document.getElementById('xoModal').classList.add('active');
+        document.getElementById('openStudioBtn').addEventListener('click', () => {
+            document.getElementById('studioView').classList.add('active');
+            initThreeStudio();
         });
 
-        document.getElementById('bubbleGame2').addEventListener('click', () => {
-            alert('قسم الألغاز الذكية قيد تطويرك المستمر!');
+        document.getElementById('closeStudioBtn').addEventListener('click', () => {
+            document.getElementById('studioView').classList.remove('active');
         });
 
-        document.getElementById('bubbleGame3').addEventListener('click', () => {
-            modelsPage.classList.add('active');
-        });
+        function initThreeStudio() {
+            const container = document.getElementById('canvas-container');
+            if (container.children.length >  0) return; // تم التهيئة مسبقاً
 
-        document.getElementById('bubbleGame4').addEventListener('click', () => {
-            alert('لعبة تفادي السيارات قيد التشغيل التفاعلي.');
-        });
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            container.appendChild(renderer.domElement);
 
-        function closeAllModals() {
-            document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
-        }
+            const geometry = new THREE.BoxGeometry();
+            const material = new THREE.MeshBasicMaterial({ color: 0x3a7bd5, wireframe: true });
+            const cube = new THREE.Mesh(geometry, material);
+            scene.add(cube);
 
-        modelsBackBtn.addEventListener('click', () => {
-            modelsPage.classList.remove('active');
-        });
+            camera.position.z = 5;
 
-        // لعبة إكس-أو البسيطة
-        let xoBoardState = ['', '', '', '', '', '', '', '', ''];
-        let xoCurrentPlayer = 'X';
-        let xoActive = true;
-
-        function makeXOMove(index) {
-            if (!xoActive || xoBoardState[index] !== '') return;
-            xoBoardState[index] = xoCurrentPlayer;
-            renderXOBorder();
-            checkXOWinner();
-            if (xoActive) {
-                xoCurrentPlayer = xoCurrentPlayer === 'X' ? 'O' : 'X';
-                document.getElementById('xoStatus').innerText = 'دور اللاعب: ' + xoCurrentPlayer;
+            function animate() {
+                requestAnimationFrame(animate);
+                cube.rotation.x += 0.01;
+                cube.rotation.y += 0.01;
+                renderer.render(scene, camera);
             }
-        }
-
-        function renderXOBorder() {
-            const cells = document.querySelectorAll('.xo-cell');
-            cells.forEach((cell, idx) => {
-                cell.innerText = xoBoardState[idx];
-            });
-        }
-
-        function checkXOWinner() {
-            const wins = [
-                [0,1,2],[3,4,5],[6,7,8],
-                [0,3,6],[1,4,7],[2,5,8],
-                [0,4,8],[2,4,6]
-            ];
-            for (let w of wins) {
-                const [a, b, c] = w;
-                if (xoBoardState[a] && xoBoardState[a] === xoBoardState[b] && xoBoardState[a] === xoBoardState[c]) {
-                    document.getElementById('xoStatus').innerText = 'الفائز هو: ' + xoBoardState[a] + '! 🎉';
-                    xoActive = false;
-                    return;
-                }
-            }
-            if (!xoBoardState.includes('')) {
-                document.getElementById('xoStatus').innerText = 'تعادل!';
-                xoActive = false;
-            }
-        }
-
-        function resetXOGame() {
-            xoBoardState = ['', '', '', '', '', '', '', '', ''];
-            xoCurrentPlayer = 'X';
-            xoActive = true;
-            document.getElementById('xoStatus').innerText = 'دور اللاعب: X';
-            renderXOBorder();
-        }
-
-        // استكشاف النموذج ثلاثي الأبعاد
-        function openExploreModal(type) {
-            document.getElementById('exploreModal').classList.add('active');
-            initExploreScene();
-        }
-
-        function closeExploreModal() {
-            document.getElementById('exploreModal').classList.remove('active');
-        }
-
-        let exploreScene, exploreCamera, exploreRenderer, exploreMesh;
-
-        function initExploreScene() {
-            const container = document.getElementById('exploreStage');
-            if (exploreRenderer) return;
-
-            exploreScene = new THREE.Scene();
-            exploreCamera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-            exploreRenderer = new THREE.WebGLRenderer({ canvas: document.getElementById('exploreCanvas'), antialias: true, alpha: true });
-            exploreRenderer.setSize(container.clientWidth, container.clientHeight);
-
-            const light = new THREE.DirectionalLight(0xffffff, 1.5);
-            light.position.set(5, 5, 5);
-            exploreScene.add(light);
-            exploreScene.add(new THREE.AmbientLight(0xffffff, 0.6));
-
-            // نموذج تجريبي كروي أو مكعب للمسدس مؤقتاً
-            const geometry = new THREE.BoxGeometry(2, 1, 3);
-            const material = new THREE.MeshStandardMaterial({ color: 0x888888, metalness: 0.8, roughness: 0.2 });
-            exploreMesh = new THREE.Mesh(geometry, material);
-            exploreScene.add(exploreMesh);
-
-            exploreCamera.position.set(4, 3, 5);
-            exploreCamera.lookAt(0, 0, 0);
-
-            document.getElementById('exploreLoading').classList.add('hidden');
-            animateExplore();
-        }
-
-        function animateExplore() {
-            requestAnimationFrame(animateExplore);
-            if (exploreMesh) {
-                exploreMesh.rotation.y += 0.005;
-            }
-            exploreRenderer.render(exploreScene, exploreCamera);
-        }
-
-        function setExploreMaterial(type) {
-            if (!exploreMesh) return;
-            if (type === 'metal') {
-                exploreMesh.material.metalness = 0.9;
-                exploreMesh.material.roughness = 0.1;
-            } else if (type === 'dark') {
-                exploreMesh.material.metalness = 0.2;
-                exploreMesh.material.roughness = 0.8;
-            } else if (type === 'gold') {
-                exploreMesh.material.color.setHex(0xffd700);
-            }
-        }
-
-        function changeExploreColor(hex) {
-            if (exploreMesh) {
-                exploreMesh.material.color.set(hex);
-            }
-        }
-
-        function resetExploreCamera() {
-            if (exploreCamera) {
-                exploreCamera.position.set(4, 3, 5);
-                exploreCamera.lookAt(0, 0, 0);
-            }
+            animate();
         }
     </script>
 </body>
