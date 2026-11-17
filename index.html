@@ -1079,5 +1079,311 @@
         .pistol-card { width:100%; max-width:1050px; min-width:0; }
         .pistol-preview { min-width:0; min-height:210px; }
         .pistol-card-info { min-width:0; overflow:hidden; }
-        .pistol-card-info .model-name, .pistol-card-info .model-desc { display:block
-<body> <html>
+        .pistol-card-info .model-name, .pistol-card-info .model-desc { display:block; }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="top-bar">
+            <button class="top-btn" id="authBtn">تسجيل الدخول</button>
+            <button class="top-btn" id="langBtn">English</button>
+        </div>
+
+        <div class="main-container">
+            <div class="logo">TORYAK WR</div>
+            
+            <div class="moon-area-wrapper">
+                <div class="side-bubbles-container" id="sideBubbles">
+                    <div class="side-bubble bubble-1" id="bubbleGame1">
+                        <span class="bubble-text">لعبة إكس-أو</span>
+                    </div>
+                    <div class="side-bubble bubble-2" id="bubbleGame2">
+                        <span class="bubble-text">ألغاز ذكية</span>
+                    </div>
+                    <div class="side-bubble bubble-3" id="bubbleGame3">
+                        <span class="bubble-text">تفاعل 3D</span>
+                    </div>
+                    <div class="side-bubble bubble-4" id="bubbleGame4">
+                        <span class="bubble-text">تفادي السيارات</span>
+                    </div>
+                </div>
+
+                <div class="moon-wrapper" id="moonWrapper">
+                    <div class="moon" id="mainMoon"></div>
+                </div>
+            </div>
+
+            <div class="main-search-wrapper">
+                <input type="text" class="search-box" id="mainSearchInput" placeholder="ابحث عن مجسمات، ألعاب، أو أدوات..." autocomplete="off">
+            </div>
+        </div>
+
+        <div class="footer-section">
+            <div class="wave-container">
+                <div class="wave wave1"></div>
+                <div class="wave wave2"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Games -->
+    <div class="modal-overlay" id="xoModal">
+        <div class="game-modal-card">
+            <div class="modal-header">
+                <div class="modal-title">لعبة إكس - أو</div>
+                <button class="close-modal-btn" onclick="closeAllModals()">✕</button>
+            </div>
+            <div class="xo-board" id="xoBoard">
+                <div class="xo-cell" onclick="makeXOMove(0)"></div>
+                <div class="xo-cell" onclick="makeXOMove(1)"></div>
+                <div class="xo-cell" onclick="makeXOMove(2)"></div>
+                <div class="xo-cell" onclick="makeXOMove(3)"></div>
+                <div class="xo-cell" onclick="makeXOMove(4)"></div>
+                <div class="xo-cell" onclick="makeXOMove(5)"></div>
+                <div class="xo-cell" onclick="makeXOMove(6)"></div>
+                <div class="xo-cell" onclick="makeXOMove(7)"></div>
+                <div class="xo-cell" onclick="makeXOMove(8)"></div>
+            </div>
+            <div class="game-status-text" id="xoStatus">دور اللاعب: X</div>
+            <button class="restart-btn" onclick="resetXOGame()">إعادة اللعب</button>
+        </div>
+    </div>
+
+    <!-- Models Page -->
+    <div class="models-page" id="modelsPage">
+        <div class="top-bar">
+            <button class="top-btn models-back" id="modelsBackBtn">العودة للرئيسية</button>
+        </div>
+        <div class="models-main">
+            <div class="models-title">معرض المجسمات</div>
+            <input type="text" class="models-search" id="modelsSearchInput" placeholder="ابحث في المجسمات...">
+            <div class="models-grid" id="modelsGrid">
+                <div class="model-card pistol-card">
+                    <div class="pistol-preview">
+                        <canvas id="pistolThumb"></canvas>
+                        <div id="pistolThumbImage"></div>
+                    </div>
+                    <div class="pistol-card-info">
+                        <div class="model-icon">🔫</div>
+                        <div class="model-name">مسدس ثلاثي الأبعاد</div>
+                        <div class="model-desc">مجسم تفاعلي دقيق مع خيارات تعديل المواد والألوان.</div>
+                        <button class="model-open-btn" onclick="openExploreModal('pistol')">استكشاف النموذج</button>
+                    </div>
+                </div>
+            </div>
+            <div class="models-empty" id="modelsEmpty">لا توجد نتائج مطابقة لبحثك.</div>
+        </div>
+    </div>
+
+    <!-- Explore Modal -->
+    <div class="explore-modal" id="exploreModal">
+        <div class="explore-box">
+            <div class="explore-head">
+                <input type="text" class="explore-title-input" id="exploreTitleInput" value="مسدس ثلاثي الأبعاد">
+                <div class="explore-actions">
+                    <button class="explore-reset" onclick="resetExploreCamera()">إعادة ضبط الكاميرا</button>
+                    <button class="explore-close" onclick="closeExploreModal()">إغلاق</button>
+                </div>
+            </div>
+            <div class="explore-stage-wrap">
+                <div class="explore-stage" id="exploreStage">
+                    <canvas id="exploreCanvas"></canvas>
+                    <div class="explore-loading" id="exploreLoading">
+                        <div class="explore-loading-card">جاري تحميل المجسم ثلاثي الأبعاد...</div>
+                    </div>
+                    <div class="explore-help">اسحب بالماوس أو الإصبع لتدوير المجسم</div>
+                </div>
+                <div class="explore-materials" id="exploreMaterials">
+                    <span class="explore-materials-label">المواد:</span>
+                    <button class="explore-material active" onclick="setExploreMaterial('metal')">
+                        <span>معدن لامع</span>
+                    </button>
+                    <button class="explore-material" onclick="setExploreMaterial('dark')">
+                        <span>أسود مطفي</span>
+                    </button>
+                    <button class="explore-material" onclick="setExploreMaterial('gold')">
+                        <span>ذهبي</span>
+                    </button>
+                    <div class="explore-color-wrap">
+                        <span>اللون:</span>
+                        <input type="color" id="exploreColorPicker" value="#888888" onchange="changeExploreColor(this.value)">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // تفاعلات القمر والفقاعات
+        const moonWrapper = document.getElementById('moonWrapper');
+        const mainMoon = document.getElementById('mainMoon');
+        const sideBubbles = document.getElementById('sideBubbles');
+        const modelsPage = document.getElementById('modelsPage');
+        const modelsBackBtn = document.getElementById('modelsBackBtn');
+        const mainSearchInput = document.getElementById('mainSearchInput');
+
+        let bubblesOpen = false;
+
+        mainMoon.addEventListener('click', () => {
+            moonWrapper.classList.add('animate');
+            setTimeout(() => moonWrapper.classList.remove('animate'), 800);
+            
+            bubblesOpen = !bubblesOpen;
+            if (bubblesOpen) {
+                sideBubbles.classList.add('active');
+            } else {
+                sideBubbles.classList.remove('active');
+            }
+        });
+
+        // فتح الألعاب أو النماذج من الفقاعات
+        document.getElementById('bubbleGame1').addEventListener('click', () => {
+            document.getElementById('xoModal').classList.add('active');
+        });
+
+        document.getElementById('bubbleGame2').addEventListener('click', () => {
+            alert('قسم الألغاز الذكية قيد تطويرك المستمر!');
+        });
+
+        document.getElementById('bubbleGame3').addEventListener('click', () => {
+            modelsPage.classList.add('active');
+        });
+
+        document.getElementById('bubbleGame4').addEventListener('click', () => {
+            alert('لعبة تفادي السيارات قيد التشغيل التفاعلي.');
+        });
+
+        function closeAllModals() {
+            document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
+        }
+
+        modelsBackBtn.addEventListener('click', () => {
+            modelsPage.classList.remove('active');
+        });
+
+        // لعبة إكس-أو البسيطة
+        let xoBoardState = ['', '', '', '', '', '', '', '', ''];
+        let xoCurrentPlayer = 'X';
+        let xoActive = true;
+
+        function makeXOMove(index) {
+            if (!xoActive || xoBoardState[index] !== '') return;
+            xoBoardState[index] = xoCurrentPlayer;
+            renderXOBorder();
+            checkXOWinner();
+            if (xoActive) {
+                xoCurrentPlayer = xoCurrentPlayer === 'X' ? 'O' : 'X';
+                document.getElementById('xoStatus').innerText = 'دور اللاعب: ' + xoCurrentPlayer;
+            }
+        }
+
+        function renderXOBorder() {
+            const cells = document.querySelectorAll('.xo-cell');
+            cells.forEach((cell, idx) => {
+                cell.innerText = xoBoardState[idx];
+            });
+        }
+
+        function checkXOWinner() {
+            const wins = [
+                [0,1,2],[3,4,5],[6,7,8],
+                [0,3,6],[1,4,7],[2,5,8],
+                [0,4,8],[2,4,6]
+            ];
+            for (let w of wins) {
+                const [a, b, c] = w;
+                if (xoBoardState[a] && xoBoardState[a] === xoBoardState[b] && xoBoardState[a] === xoBoardState[c]) {
+                    document.getElementById('xoStatus').innerText = 'الفائز هو: ' + xoBoardState[a] + '! 🎉';
+                    xoActive = false;
+                    return;
+                }
+            }
+            if (!xoBoardState.includes('')) {
+                document.getElementById('xoStatus').innerText = 'تعادل!';
+                xoActive = false;
+            }
+        }
+
+        function resetXOGame() {
+            xoBoardState = ['', '', '', '', '', '', '', '', ''];
+            xoCurrentPlayer = 'X';
+            xoActive = true;
+            document.getElementById('xoStatus').innerText = 'دور اللاعب: X';
+            renderXOBorder();
+        }
+
+        // استكشاف النموذج ثلاثي الأبعاد
+        function openExploreModal(type) {
+            document.getElementById('exploreModal').classList.add('active');
+            initExploreScene();
+        }
+
+        function closeExploreModal() {
+            document.getElementById('exploreModal').classList.remove('active');
+        }
+
+        let exploreScene, exploreCamera, exploreRenderer, exploreMesh;
+
+        function initExploreScene() {
+            const container = document.getElementById('exploreStage');
+            if (exploreRenderer) return;
+
+            exploreScene = new THREE.Scene();
+            exploreCamera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+            exploreRenderer = new THREE.WebGLRenderer({ canvas: document.getElementById('exploreCanvas'), antialias: true, alpha: true });
+            exploreRenderer.setSize(container.clientWidth, container.clientHeight);
+
+            const light = new THREE.DirectionalLight(0xffffff, 1.5);
+            light.position.set(5, 5, 5);
+            exploreScene.add(light);
+            exploreScene.add(new THREE.AmbientLight(0xffffff, 0.6));
+
+            // نموذج تجريبي كروي أو مكعب للمسدس مؤقتاً
+            const geometry = new THREE.BoxGeometry(2, 1, 3);
+            const material = new THREE.MeshStandardMaterial({ color: 0x888888, metalness: 0.8, roughness: 0.2 });
+            exploreMesh = new THREE.Mesh(geometry, material);
+            exploreScene.add(exploreMesh);
+
+            exploreCamera.position.set(4, 3, 5);
+            exploreCamera.lookAt(0, 0, 0);
+
+            document.getElementById('exploreLoading').classList.add('hidden');
+            animateExplore();
+        }
+
+        function animateExplore() {
+            requestAnimationFrame(animateExplore);
+            if (exploreMesh) {
+                exploreMesh.rotation.y += 0.005;
+            }
+            exploreRenderer.render(exploreScene, exploreCamera);
+        }
+
+        function setExploreMaterial(type) {
+            if (!exploreMesh) return;
+            if (type === 'metal') {
+                exploreMesh.material.metalness = 0.9;
+                exploreMesh.material.roughness = 0.1;
+            } else if (type === 'dark') {
+                exploreMesh.material.metalness = 0.2;
+                exploreMesh.material.roughness = 0.8;
+            } else if (type === 'gold') {
+                exploreMesh.material.color.setHex(0xffd700);
+            }
+        }
+
+        function changeExploreColor(hex) {
+            if (exploreMesh) {
+                exploreMesh.material.color.set(hex);
+            }
+        }
+
+        function resetExploreCamera() {
+            if (exploreCamera) {
+                exploreCamera.position.set(4, 3, 5);
+                exploreCamera.lookAt(0, 0, 0);
+            }
+        }
+    </script>
+</body>
+</html>
