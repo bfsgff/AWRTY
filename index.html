@@ -6589,6 +6589,35 @@ loader.load('models/model.glb', function (gltf) {
     console.log('تم تحميل النموذج بنجاح!');
 }, undefined, function (error) {
     console.error('خطأ في تحميل النموذج:', error);
+
+        const dropZone = window; // أو حدد منطقة معينة في الاستوديو
+
+dropZone.addEventListener('dragover', function (e) {
+    e.preventDefault(); // إيقاف السلوك الافتراضي للمتصفح
+});
+
+dropZone.addEventListener('drop', function (e) {
+    e.preventDefault();
+    
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+        const file = files[0];
+        const fileURL = URL.createObjectURL(file);
+        
+        // التحقق من صيغة الملف
+        if (file.name.endsWith('.glb') || file.name.endsWith('.gltf')) {
+            const loader = new THREE.GLTFLoader();
+            loader.load(fileURL, function (gltf) {
+                scene.add(gltf.scene);
+                console.log('تم إفلات وعرض المجسم بنجاح!');
+            }, undefined, function (error) {
+                console.error('خطأ في قراءة الملف:', error);
+            });
+        } else {
+            alert('عذراً، يرجى إفلات ملف بصيغة .glb أو .gltf');
+        }
+    }
+});
 });
 </script>
  
