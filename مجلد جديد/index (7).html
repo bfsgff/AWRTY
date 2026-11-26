@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TORYAK WR</title>
+    <script src="01-head-init.js"></script>
+    <!-- مكتبات Three.js لتشغيل الاستوديو ثلاثي الأبعاد بكامل ميزاته -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fflate@0.8.2/umd/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/DRACOLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/MTLLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/FBXLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/PLYLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/ColladaLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/TDSLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chevrotain@9.1.0/lib/chevrotain.min.js" onerror="this.onerror=null;this.src='https://unpkg.com/chevrotain@9.1.0/lib/chevrotain.min.js'"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/VRMLLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/3MFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/AMFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/exporters/GLTFExporter.js"></script>
+    <script src="02-gltf-exporter-fix.js"></script>
+    <link rel="stylesheet" href="style.css">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+<!-- ===== بوابة تسجيل الدخول (الصفحة الأولى) ===== -->
+<div id="loginGate" style="position:fixed;inset:0;z-index:2147483000;background:#000"></div>
+<script src="03-login-gate.js"></script>
+
+
+<div id="welcomePage" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
+  <div class="welcome-card">
+    <div class="welcome-book animate" aria-hidden="true"><span class="cover left"></span><span class="cover right"></span><span class="page"></span></div>
+
+    <section class="welcome-screen active" id="welcomeScreen1">
+      <div class="welcome-badge" id="welcomeBadge">TORYAK WR • مساحة للإبداع والنشر</div>
+      <h1 class="welcome-title" id="welcomeTitle">مرحبًا بك في TORYAK WR</h1>
+      <p class="welcome-lead" id="welcomeLead">مكان تعرض فيه أفكارك ومشاريعك، من أول محاولة إلى العمل الذي تفتخر به.</p>
+      <p class="welcome-sub" id="welcomeSub">نماذج ثلاثية الأبعاد، رسومات ورقية، رسم رقمي، فيديوهات، وروابط من YouTube وInstagram وTikTok. لا تحتاج أن تكون محترفًا حتى تبدأ.</p>
+      <div class="welcome-tags" id="welcomeTags">
+        <span class="welcome-tag">نماذج ثلاثية الأبعاد</span><span class="welcome-tag">رسومات ورقية</span><span class="welcome-tag">رسم رقمي</span><span class="welcome-tag">فيديو</span><span class="welcome-tag">محتوى اجتماعي</span><span class="welcome-tag">أفكار ومشاريع</span>
+      </div>
+      <div class="welcome-question" id="welcomeNewQuestion">هل أنت مستخدم جديد؟</div>
+      <div class="welcome-options"><button class="welcome-option" id="welcomeNewYes" type="button">نعم، أنا جديد</button><button class="welcome-option secondary" id="welcomeNewNo" type="button">لا، أريد المتابعة</button></div>
+      <div class="welcome-search"><input id="welcomeSearchInput" type="text" autocomplete="off" placeholder="ابحث عن أي نموذج أو مشروع..." aria-label="البحث في الموقع"><button id="welcomeSearchBtn" type="button">بحث</button></div>
+    </section>
+
+    <section class="welcome-screen" id="welcomeScreen2">
+      <div class="welcome-badge">بداية جديدة</div>
+      <h2 class="welcome-title" id="welcomeGreetingTitle">مرحبًا بك!</h2>
+      <p class="welcome-lead">هنا مكانك لتعرض ما تصنعه، مهما كانت البداية بسيطة.</p>
+      <p class="welcome-sub">خذ وقتك، جرّب، تعلّم، ثم شارك عندما تكون جاهزًا.</p>
+      <div class="welcome-question">هل تريد نشر محتوى معيّن؟ هل تمتلك محتوى أو مشاريع؟</div>
+      <div class="welcome-options"><button class="welcome-option" id="welcomePublishYes" type="button">نعم، أريد النشر</button><button class="welcome-option secondary" id="welcomePublishNo" type="button">لا، سأستكشف أولًا</button></div>
+    </section>
+
+    <section class="welcome-screen" id="welcomeScreen3">
+      <div class="welcome-badge">انشر ما تصنعه</div>
+      <h2 class="welcome-title">ما نوع المحتوى الذي تقدمه؟</h2>
+      <div class="welcome-choice-grid">
+        <button class="welcome-choice" id="welcomeType3D" type="button"><strong>نماذج ثلاثية الأبعاد</strong><span>ارفع GLB أو GLTF أو OBJ أو FBX أو STL أو ZIP</span></button>
+        <button class="welcome-choice" id="welcomeTypePaper" type="button"><strong>رسومات ورقية</strong><span>صورة لرسومتك على الورق</span></button>
+        <button class="welcome-choice" id="welcomeTypeDigital" type="button"><strong>رسم رقمي</strong><span>صورة أو عمل رقمي</span></button>
+        <button class="welcome-choice" id="welcomeTypeYouTube" type="button"><strong>YouTube</strong><span>أضف رابط المحتوى</span></button>
+        <button class="welcome-choice" id="welcomeTypeInstagram" type="button"><strong>Instagram</strong><span>أضف رابط المحتوى</span></button>
+        <button class="welcome-choice" id="welcomeTypeTikTok" type="button"><strong>TikTok</strong><span>أضف رابط المحتوى</span></button>
+      </div>
+      <p class="welcome-note">النشر العام والحسابات الفعلية تعتمد على نظام تسجيل الدخول الموجود في الموقع.</p>
+      <input class="welcome-file" id="welcome3DFile" type="file" accept="*/*" multiple>
+      <input class="welcome-file" id="welcomeImageFile" type="file" accept="image/*">
+      <div class="welcome-link-row" id="welcomeSocialRow" style="display:none"><input id="welcomeSocialUrl" type="url" placeholder="ضع رابط المحتوى هنا"><button id="welcomeSocialSave" type="button">حفظ المحتوى</button></div>
+      <div class="welcome-options" style="margin-top:14px"><button class="welcome-option secondary" id="welcomeBackToHome" type="button">الانتقال إلى الموقع</button></div>
+    </section>
+  </div>
+</div>
+<div id="welcomeGreeting" aria-live="polite">مرحبًا بك في TORYAK WR</div>
+
+
+    <!-- الصفحة الرئيسية -->
+    <div class="page-wrapper" id="mainHomePage">
+        <div class="top-bar">
+            <button class="top-btn" id="openAuthModalBtn">تسجيل الدخول</button>
+            <button class="top-btn" id="openTranslateModalBtn">الترجمة</button>
+        </div>
+
+        <div class="main-container">
+            <div class="logo">T O R Y A K &nbsp; W R</div>
+
+            <div class="moon-area-wrapper">
+                <div class="moon-wrapper" id="moonWrapper">
+                    <div class="moon" id="toggleMoonBubbles" title="انقر لظهور الخيارات"></div>
+                </div>
+
+                <div class="side-bubbles-container" id="sideBubbles">
+                    <!-- زر فتح الاستوديو ثلاثي الأبعاد -->
+                    <div class="side-bubble bubble-1" id="openStudioBtn">
+                        <div class="bubble-text">إنشاء مشروع (3D)</div>
+                    </div>
+                    <!-- زر لعبة إكس - أو (يفتح نافذة شفافة منبثقة للعب ضد الذكاء الاصطناعي) -->
+                    <div class="side-bubble bubble-2" id="openXoModal">
+                        <div class="bubble-text">لعبة إكس - أو</div>
+                    </div>
+                    <!-- زر التبديل بين الألعاب ومجسمات 3D؛ لا يفتح صفحة مباشرة -->
+                    <div class="side-bubble bubble-3" id="openCarModal">
+                        <div class="bubble-text">الألعاب</div>
+                    </div>
+                    <!-- زر لعبة حل الألغاز السريعة (يفتح نافذة شفافة منبثقة) -->
+                    <div class="side-bubble bubble-4" id="openPuzzleModal">
+                        <div class="bubble-text">الألغاز السريعة</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-search-wrapper">
+                <span id="mainSearchArc" aria-hidden="true"></span>
+                <input type="text" id="mainSearchBox" class="search-box" placeholder="ما الشيء الذي تريد البحث عنه؟ مثل: نماذج ثلاثية الأبعاد أو ساعة أو بطة..." aria-label="ما الشيء الذي تريد البحث عنه؟" autocomplete="off" aria-controls="mainSearchSuggestions" aria-expanded="false"><button type="button" id="mainSearchBtn" class="search-submit-btn">بحث</button>
+                <div id="mainSearchSuggestions" class="main-search-suggestions" role="listbox" aria-label="نتائج البحث" aria-live="polite"></div>
+            </div>
+            <div class="search-hint">اكتب اسم النموذج واضغط Enter للانتقال إلى صفحة النماذج ثلاثية الأبعاد</div>
+        </div>
+
+        <div class="footer-section">
+            <div class="wave-container">
+                <div class="wave wave1"></div>
+                <div class="wave wave2"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- صفحة الألعاب: لا تظهر إلا بعد كتابة البحث والضغط على بحث -->
+    <section class="toryak-games-page" id="toryakGamesPage" aria-hidden="true">
+        <button class="top-btn tg-games-back" id="tgGamesBack" type="button">رجوع</button>
+        <div class="toryak-games-menu-wrap">
+            <button class="toryak-games-dots" id="toryakGamesDots" type="button" aria-label="خيارات الألعاب" aria-expanded="false">⋮</button>
+            <div class="toryak-games-menu" id="toryakGamesMenu" role="menu">
+                <button type="button" id="toryakOpenGameStudio" role="menuitem">استوديو جيم</button>
+            </div>
+        </div>
+        <main class="toryak-games-main">
+            <h1 class="toryak-games-title">الألعاب</h1>
+            <div class="toryak-games-grid" id="toryakGamesGrid">
+                <article class="toryak-game-card" data-game-search="لعبة إكس أو اكس او xo tic tac toe تحدي" id="toryakXoGameCard">
+                    <div class="toryak-game-card-preview toryak-xo-preview" aria-hidden="true">
+                        <div class="toryak-xo-mini"><span>X</span><span>O</span><span></span><span></span><span>X</span><span></span><span>O</span><span></span><span>X</span></div>
+                    </div>
+                    <div class="toryak-game-card-info">
+                        <h2>لعبة إكس - أو</h2>
+                        <p>تحدَّ الذكاء الاصطناعي في لعبة إكس - أو.</p>
+                        <button class="toryak-game-open" type="button" id="toryakOpenXoGame">تشغيل اللعبة</button>
+                    </div>
+                </article>
+                <article class="toryak-game-card" data-game-search="الألغاز السريعة لغز ألغاز puzzle سؤال" id="toryakPuzzleGameCard">
+                    <div class="toryak-game-card-preview toryak-puzzle-preview" aria-hidden="true">
+                        <div class="toryak-puzzle-mini"><span>؟</span><span>؟</span><span>؟</span></div>
+                    </div>
+                    <div class="toryak-game-card-info">
+                        <h2>الألغاز السريعة</h2>
+                        <p>أجب عن الأسئلة وانتقل إلى اللغز التالي.</p>
+                        <button class="toryak-game-open" type="button" id="toryakOpenPuzzleGame">تشغيل اللعبة</button>
+                    </div>
+                </article>
+            </div>
+            <p class="toryak-games-empty" id="toryakGamesEmpty">لم نعثر على لعبة بهذا الاسم. يمكنك نشر لعبة جديدة من استوديو جيم.</p>
+        </main>
+        <div class="footer-section toryak-games-footer">
+            <div class="wave-container"><div class="wave wave1"></div><div class="wave wave2"></div></div>
+        </div>
+    </section>
+
+    <!-- استوديو نشر الألعاب -->
+    <section class="toryak-game-studio" id="toryakGameStudio" aria-hidden="true">
+        <header class="toryak-game-studio-head">
+            <button class="top-btn" type="button" id="toryakGameStudioBack">رجوع</button>
+            <h1>استوديو جيم</h1>
+        </header>
+        <div class="toryak-game-studio-content">
+            <form class="toryak-game-form" id="toryakGameForm">
+                <div class="tg-dev-banner" id="tgDevBanner" hidden></div>
+                <label>اسم اللعبة
+                    <input id="toryakGameName" type="text" maxlength="90" required placeholder="اكتب اسم اللعبة">
+                </label>
+                <label>مواصفات اللعبة
+                    <textarea id="toryakGameDescription" rows="4" maxlength="800" placeholder="اكتب وصفًا مختصرًا للعبة وطريقة اللعب"></textarea>
+                </label>
+                <label>رابط اللعبة (اختياري)
+                    <input id="toryakGameUrl" type="url" placeholder="https://example.com/game">
+                </label>
+                <label>ملف اللعبة أو التطبيق
+                    <input id="toryakGameFile" type="file" accept="*/*">
+                </label>
+                <div class="tg-field-label">صورة اللعبة (غلاف)</div>
+                <label class="tg-plus-tile" id="tgCoverTile" for="toryakGameCover"><span class="tg-plus">+</span><span>أضف صورة للعبة</span></label>
+                <input id="toryakGameCover" type="file" accept="image/*" hidden>
+                <div class="tg-editor" id="tgEditor" hidden>
+                    <div class="tg-stage"><canvas id="tgEditCanvas" width="640" height="400"></canvas></div>
+                    <div class="tg-sl"><span>التقريب</span><input type="range" data-k="zoom" min="1" max="3" step="0.01" value="1"></div>
+                    <div class="tg-sl"><span>أفقي</span><input type="range" data-k="x" min="-1" max="1" step="0.01" value="0"></div>
+                    <div class="tg-sl"><span>رأسي</span><input type="range" data-k="y" min="-1" max="1" step="0.01" value="0"></div>
+                    <div class="tg-sl"><span>السطوع</span><input type="range" data-k="b" min="50" max="150" value="100"></div>
+                    <div class="tg-sl"><span>التباين</span><input type="range" data-k="c" min="50" max="150" value="100"></div>
+                    <div class="tg-sl"><span>التشبع</span><input type="range" data-k="s" min="0" max="200" value="100"></div>
+                    <div class="tg-sl"><span>عمق اللعبة</span><input type="range" data-k="d" min="0" max="100" value="60"></div>
+                    <div class="tg-ed-btns"><label for="toryakGameCover">تغيير الصورة</label><button type="button" id="tgEdReset">إعادة ضبط</button><button type="button" id="tgEdRemove">إزالة</button></div>
+                    <p class="toryak-game-note">اسحب الصورة بالماوس لتحريكها. «عمق اللعبة» يضيف إضاءة وظلالًا لتبدو كغلاف لعبة.</p>
+                </div>
+                <div class="tg-field-label">فيديو اللعبة (يظهر عند تمرير المؤشر، مع صوت)</div>
+                <label class="tg-plus-tile" id="tgVideoTile" for="toryakGameVideo" style="min-height:90px"><span class="tg-plus" style="font-size:2rem">+</span><span id="tgVideoName">أضف فيديو</span></label>
+                <input id="toryakGameVideo" type="file" accept="video/*" hidden>
+                <video class="tg-vid-prev" id="tgVideoPrev" controls hidden></video>
+                <div class="tg-field-label">صور / ملصقات / فيديو إضافية (تظهر في مواصفات اللعبة)</div>
+                <label class="tg-plus-tile" for="toryakGameExtras" style="min-height:70px"><span class="tg-plus" style="font-size:1.8rem">+</span><span id="tgExtrasName">أضف صورًا أو ملصقات أو فيديو</span></label>
+                <input id="toryakGameExtras" type="file" accept="image/*,video/*" multiple hidden>
+                <p class="toryak-game-note">يمكن تشغيل ملف HTML أو رابط ويب داخل الصفحة. أما ملفات التطبيقات الأخرى فيمكن حفظها وتنزيلها، لكنها لا تعمل مباشرة داخل المتصفح.</p>
+                <button class="toryak-game-publish" type="submit">نشر اللعبة</button>
+                <p class="toryak-game-status" id="toryakGameStatus" role="status"></p>
+            </form>
+            <aside class="toryak-game-preview-panel">
+                <h2>معاينة البطاقة</h2>
+                <article class="toryak-game-card toryak-preview-card" id="toryakGameLivePreview">
+                    <div class="toryak-game-card-preview" id="toryakGameCoverPreview"><span>صورة أو فيديو اللعبة</span></div>
+                    <div class="toryak-game-card-info">
+                        <h2 id="toryakGamePreviewName">اسم اللعبة</h2>
+                        <p id="toryakGamePreviewDescription">سيظهر وصف اللعبة هنا.</p>
+                        <button class="toryak-game-open" type="button" disabled>تشغيل اللعبة</button>
+                    </div>
+                </article>
+            </aside>
+        </div>
+    </section>
+
+    <div class="tg-detail-overlay" id="tgDetail" aria-hidden="true">
+        <div class="tg-detail" role="dialog" aria-modal="true" aria-labelledby="tgDetailTitle">
+            <button class="tg-detail-close" id="tgDetailClose" type="button" aria-label="إغلاق">✕</button>
+            <div class="tg-detail-media" id="tgDetailMedia"></div>
+            <div class="tg-detail-body">
+                <div class="tg-dev-row"><button type="button" id="tgDevAvatar" hidden title="المطوّر"></button><h2 id="tgDetailTitle"></h2></div>
+                <div class="tg-stats"><span id="tgStatsText"></span><span class="tg-stars" id="tgStars" title="قيّم اللعبة"><button type="button" data-n="1">★</button><button type="button" data-n="2">★</button><button type="button" data-n="3">★</button><button type="button" data-n="4">★</button><button type="button" data-n="5">★</button></span></div>
+                <div class="tg-detail-actions"><button class="tg-play-btn" id="tgDetailPlay" type="button">تنزيل اللعبة</button><button class="tg-dev-btn" id="tgDetailDev" type="button" hidden>تطوير اللعبة</button></div>
+                <div class="tg-tabs"><button type="button" class="active" data-tab="specs">مواصفات اللعبة</button><button type="button" data-tab="comments">التعليقات</button></div>
+                <div class="tg-specs" id="tgTabSpecs"></div>
+                <div id="tgTabComments" hidden>
+                    <form class="tg-comment-form" id="tgCommentForm">
+                        <input type="text" id="tgCName" maxlength="40" placeholder="اسمك (اختياري)">
+                        <textarea id="tgCText" rows="3" maxlength="600" placeholder="اكتب تعليقك..."></textarea>
+                        <div class="tg-comment-row"><label class="tg-attach" for="tgCImg">📷 إرفاق صورة للعبة</label><input type="file" id="tgCImg" accept="image/*" hidden><img class="tg-attach-prev" id="tgCPrev" alt="" hidden><button class="toryak-game-open" type="submit">نشر التعليق</button></div>
+                    </form>
+                    <div class="tg-cork" id="tgCork" title="اضغط لعرض كل التعليقات"></div><p class="tg-cork-tip">اضغط على لوحة الفلين لعرض كل التعليقات تحتها</p>
+                    <div id="tgCommentList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- عارض الألعاب المنشورة -->
+    <section class="toryak-game-player" id="toryakGamePlayer" aria-hidden="true">
+        <header class="toryak-game-player-head">
+            <h2 id="toryakGamePlayerTitle">اللعبة</h2>
+            <button class="top-btn" id="toryakCloseGamePlayer" type="button">إغلاق</button>
+        </header>
+        <iframe id="toryakGameFrame" title="اللعبة" sandbox="allow-scripts allow-forms allow-popups allow-downloads" allowfullscreen></iframe>
+        <div class="toryak-game-download" id="toryakGameDownload" hidden>
+            <p>هذا الملف لا يعمل مباشرة داخل المتصفح.</p>
+            <a id="toryakGameDownloadLink" download>تنزيل ملف اللعبة</a>
+        </div>
+        <a class="toryak-game-external" id="toryakGameExternalLink" target="_blank" rel="noopener noreferrer" hidden>فتح اللعبة في نافذة جديدة</a>
+    </section>
+
+    <!-- صفحة النماذج ثلاثية الأبعاد -->
+    <div class="models-page" id="modelsPage">
+        <button class="top-btn models-back" id="closeModelsPage">رجوع</button>
+        <div class="models-main">
+            <div class="logo" style="margin-top:8px;">T O R Y A K  W R</div>
+            <div class="models-title">نماذج ثلاثية الأبعاد</div>
+            <input type="text" id="modelsSearchBox" class="models-search" placeholder="ما الشيء الذي تريد البحث عنه؟ مثل: نماذج ثلاثية الأبعاد أو ساعة أو بطة..." aria-label="البحث في النماذج ثلاثية الأبعاد">
+            <div class="models-grid" id="modelsGrid"></div>
+            <div class="models-empty" id="modelsEmpty">لم نعثر على هذا المجسم. يمكنك رفع ملف GLB أو GLTF من Blender لإضافته إلى مشروعك.</div>
+            <div class="model-request-hint" id="modelRequestHint"></div>
+        </div>
+        <div class="footer-section">
+            <div class="wave-container"><div class="wave wave1"></div><div class="wave wave2"></div></div>
+        </div>
+    </div>
+
+    <!-- نافذة منبثقة شفافة: تسجيل الدخول (جوجل ومايكروسوفت) -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-card">
+            <div class="modal-header">
+                <div class="modal-title">تسجيل الدخول</div>
+                <button class="close-modal-btn" id="closeAuthModal">✕</button>
+            </div>
+            <button class="auth-btn" id="googleLoginBtn" type="button">تسجيل الدخول عبر Google</button>
+            <button class="auth-btn" id="microsoftLoginBtn" type="button">تسجيل الدخول عبر Microsoft</button>
+        </div>
+    </div>
+
+    <!-- نافذة منبثقة شفافة: الترجمة -->
+    <div class="auth-modal" id="translateModal">
+        <div class="auth-card">
+            <div class="modal-header">
+                <div class="modal-title">تغيير لغة الموقع</div>
+                <button class="close-modal-btn" id="closeTranslateModal">✕</button>
+            </div>
+            <button class="auth-btn" onclick="setSiteLanguage('ar'); document.getElementById('translateModal').classList.remove('active');">العربية (Arabic)</button>
+            <button class="auth-btn" onclick="setSiteLanguage('en'); document.getElementById('translateModal').classList.remove('active');">English</button>
+            <button class="auth-btn" onclick="setSiteLanguage('zh'); document.getElementById('translateModal').classList.remove('active');">中文 (Chinese)</button>
+            <button class="auth-btn" onclick="setSiteLanguage('ur'); document.getElementById('translateModal').classList.remove('active');">اردو (Urdu)</button>
+            <button class="auth-btn" onclick="setSiteLanguage('fr'); document.getElementById('translateModal').classList.remove('active');">Français (French)</button>
+        </div>
+    </div>
+
+    <!-- نافذة منبثقة شفافة: لعبة إكس - أو (مع الذكاء الاصطناعي) -->
+    <div class="modal-overlay" id="xoModalOverlay">
+        <div class="game-modal-card">
+            <div class="modal-header">
+                <div class="modal-title">لعبة إكس - أو ( ضد الذكاء الاصطناعي )</div>
+                <button class="close-modal-btn" id="closeXoModal">✕</button>
+            </div>
+            <div class="game-status-text" id="xoStatus">دورك (X) - العب الآن</div>
+            <div class="xo-board" id="xoBoard">
+                <div class="xo-cell" data-index="0"></div>
+                <div class="xo-cell" data-index="1"></div>
+                <div class="xo-cell" data-index="2"></div>
+                <div class="xo-cell" data-index="3"></div>
+                <div class="xo-cell" data-index="4"></div>
+                <div class="xo-cell" data-index="5"></div>
+                <div class="xo-cell" data-index="6"></div>
+                <div class="xo-cell" data-index="7"></div>
+                <div class="xo-cell" data-index="8"></div>
+            </div>
+            <button class="restart-btn" id="xoRestartBtn">إعادة اللعب</button>
+        </div>
+    </div>
+
+    <!-- نافذة منبثقة شفافة: حل الألغاز السريعة -->
+    <div class="modal-overlay" id="puzzleModalOverlay">
+        <div class="game-modal-card" style="max-width: 340px;">
+            <div class="modal-header">
+                <div class="modal-title">الألغاز السريعة</div>
+                <button class="close-modal-btn" id="closePuzzleModal">✕</button>
+            </div>
+            <div class="puzzle-question" id="puzzleQuestionText">جاري تحميل اللغز...</div>
+            <div class="puzzle-options" id="puzzleOptionsContainer"></div>
+            <button class="restart-btn" id="nextPuzzleBtn" style="display:none; margin-top: 15px;">السؤال التالي</button>
+        </div>
+    </div>
+
+    <!-- نافذة منبثقة شفافة: تفادي السيارات -->
+    <div class="modal-overlay" id="carModalOverlay">
+        <div class="game-modal-card" style="max-width: 320px;">
+            <div class="modal-header">
+                <div class="modal-title">لعبة تفادي السيارات</div>
+                <button class="close-modal-btn" id="closeCarModal">✕</button>
+            </div>
+            <div class="car-game-canvas-wrap">
+                <canvas id="carGameCanvas" width="240" height="260"></canvas>
+            </div>
+            <div class="car-controls">
+                <button class="car-ctrl-btn" id="carLeftBtn">◀</button>
+                <button class="car-ctrl-btn" id="carRightBtn">▶</button>
+            </div>
+            <button class="restart-btn car-restart-btn" id="carRestartBtn">إعادة اللعبة</button>
+            <div class="game-status-text" id="carScoreText" style="margin-top: 8px;">النقاط: 0 • تحكم بالأسهم أو الزرين</div>
+        </div>
+    </div>
+
+    <!-- نافذة استكشاف النموذج ثلاثي الأبعاد -->
+    <div class="explore-modal" id="exploreModal" aria-hidden="true">
+        <div class="explore-box" role="dialog" aria-modal="true" aria-labelledby="exploreTitle">
+            <div class="explore-head">
+                <input id="exploreTitle" class="explore-title-input" type="text" maxlength="80" value="استكشاف النموذج ثلاثي الأبعاد" aria-label="عنوان نافذة الاستكشاف">
+                <div class="explore-actions">
+                    <label class="explore-color-wrap" title="تغيير لون المجسم">
+                        <span>لون المجسم</span>
+                        <input type="color" id="exploreColor" value="#5B2A7A" aria-label="لون المجسم">
+                    </label>
+                    <button class="explore-reset" id="exploreReset" type="button">إعادة ضبط</button>
+                    <button class="explore-close download-btn" id="exploreDownload" type="button">تحميل المجسم</button>
+                    <button class="explore-close" id="exploreFullscreen" type="button" title="ملء شاشة عارض المجسم">⛶ ملء الشاشة</button>
+                    <button class="explore-close" id="exploreClose" type="button">إغلاق</button>
+                </div>
+            </div>
+            <div class="explore-stage-wrap">
+                <div class="explore-stage" id="exploreStage">
+                    <canvas id="exploreCanvas"></canvas>
+                    <div class="explore-loading" id="exploreLoading"><div class="explore-loading-card" id="exploreLoadingText">جارٍ تجهيز المجسم...</div></div>
+                    <div class="explore-help">اسحب للتدوير • عجلة الماوس للتكبير • انقر على جزء ثم اختر لونه</div>
+                </div>
+                <div class="explore-materials" id="exploreMaterials"><span class="explore-materials-label">ألوان</span><button class="explore-play-btn" id="explorePlay" type="button" title="تشغيل الأنيميشن المضمّن داخل المجسم">▶ تشغيل</button><button class="explore-color-swatch" type="button" title="لون #ffffff" style="background:#ffffff" data-color="#ffffff"></button><button class="explore-color-swatch" type="button" title="لون #252525" style="background:#252525" data-color="#252525"></button><button class="explore-color-swatch" type="button" title="لون #5a5a5a" style="background:#5a5a5a" data-color="#5a5a5a"></button><button class="explore-color-swatch" type="button" title="لون #8a6b45" style="background:#8a6b45" data-color="#8a6b45"></button><button class="explore-color-swatch" type="button" title="لون #24384f" style="background:#24384f" data-color="#24384f"></button><button class="explore-color-swatch" type="button" title="لون #7b2f2f" style="background:#7b2f2f" data-color="#7b2f2f"></button></div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- واجهة الاستوديو الثلاثي الأبعاد المدمجة -->
+    <div class="studio-view" id="studioView">
+        <div class="header-top">
+            <div class="studio-logo">TORYAKW</div>
+            <input type="text" id="projectHeaderTitle" class="studio-project-title" maxlength="80" placeholder="عنوان المشروع..." aria-label="عنوان المشروع">
+            <div class="studio-search-wrap">
+                <input type="text" id="searchInput" class="studio-search-box" placeholder="ابحث عن نموذج ثلاثي الأبعاد..." aria-label="ابحث عن نموذج ثلاثي الأبعاد">
+                <div id="studioSearchResults" class="studio-search-results" aria-live="polite"></div>
+            </div>
+            <!-- زر نشر المشروع المضاف حديثاً -->
+            <button class="top-btn" id="publishProjectTopBtn">نشر المشروع </button>
+        </div>
+
+        <div id="canvas-container"></div>
+
+        <div class="tools-sidebar">
+            <div class="sidebar-title">
+                <span>استوديو التحكم بالمجسمات</span>
+                <div style="display:flex;gap:6px;align-items:center;">
+                    <button class="close-studio-btn download-btn" id="downloadProjectBtn" type="button">تحميل المشروع</button>
+                    <button class="close-studio-btn" id="closeStudioBtn">إغلاق الاستوديو</button>
+                </div>
+            </div>
+
+            <div class="tool-group">
+                <label>نماذج سريعة للبحث:</label>
+                <div class="studio-model-quick-list" id="studioModelQuickList">
+                </div>
+            </div>
+
+            <div class="tool-group">
+                <div class="project-meta-title">إنشاء مشروع 3D</div>
+                <input id="projectName" class="project-input" type="text" maxlength="80" placeholder="اكتب عنوان المشروع بحرية">
+                <textarea id="projectDescription" class="project-textarea" maxlength="500" placeholder="وصف المشروع (اختياري)"></textarea>
+                <label class="drop-zone" id="dropZone" for="fileInput">
+                    <strong>اسحب ملف 3D هنا أو اضغط للاختيار</strong>
+                    <small>الصيغ: GLB / GLTF / OBJ / FBX / STL / PLY / DAE / 3DS / 3MF / AMF / WRL / ZIP</small>
+                    <input type="file" id="fileInput" accept="*/*" multiple onchange="loadCustomFiles(event)">
+                    <button type="button" class="action-btn" id="chooseModelFolderBtn" style="width:100%;margin-top:7px">اختيار مجلد المجسم وخاماته</button>
+                    <input type="file" id="modelFolderInput" webkitdirectory directory multiple style="display:none" onchange="loadCustomFiles(event)">
+                </label>
+                <div class="project-file-name" id="projectFileName">لم يتم اختيار ملف بعد</div>
+                <div class="remote-model-row">
+                    <input id="remoteModelUrl" class="project-input" type="url" placeholder="رابط مباشر لملف 3D من الإنترنت (اختياري)" aria-label="رابط مباشر لملف مجسم">
+                    <button class="action-btn" type="button" id="loadRemoteModelBtn">تحميل الرابط</button>
+                </div>
+                <small class="project-file-help">الأفضل من Blender: صدّر بصيغة GLB مع تفعيل تضمين الخامات والحركات. يمكنك رفع ملف واحد أو اختيار مجلد GLTF وخاماته. النشر الحالي يحفظ المشروع في هذا المتصفح فقط؛ النشر لكل زوار الموقع يحتاج خادمًا.</small>
+                <div class="project-actions">
+                    <button class="action-btn" type="button" id="newProjectBtn">مشروع جديد</button>
+                    <button class="action-btn publish-btn" type="button" id="publishProjectBtn">نشر المشروع </button>
+                    <button class="action-btn delete-project-btn" type="button" id="deleteProjectBtn">حذف المشروع</button>
+                </div>
+                <div class="project-animation-panel">
+                    <div class="project-animation-title">أنيميشن وتحريك المجسم</div>
+                    <div class="animation-row">
+                        <button class="action-btn" type="button" id="projectAnimationBtn">▶ تشغيل</button>
+                        <button class="action-btn" type="button" onclick="setProjectAnimationMode('rotate')">↻ دوران</button>
+                        <button class="action-btn" type="button" onclick="setProjectAnimationMode('float')">↕ طفو</button>
+                        <button class="action-btn" type="button" onclick="setProjectAnimationMode('inspect')">◌ عرض</button>
+                    </div>
+                    <input class="animation-speed" id="projectAnimationSpeed" type="range" min="0.2" max="2.5" step="0.1" value="1" aria-label="سرعة الأنيميشن">
+                    <div class="project-path-note">لعمل حركة خاصة: حرّك المجسم أو دوّره أو غيّر حجمه، ثم احفظ كل وضعية. احفظ وضعيتين على الأقل ثم شغّل المسار.</div>
+                    <div class="project-path-controls">
+                        <button class="action-btn" type="button" id="captureProjectPoseBtn">حفظ الوضعية</button>
+                        <button class="action-btn" type="button" id="playProjectPathBtn">تشغيل المسار</button>
+                        <button class="action-btn" type="button" id="clearProjectPathBtn">مسح الوضعيات</button>
+                    </div>
+                    <div class="project-path-count" id="projectPathCount">الوضعيات المحفوظة: 0</div>
+                </div>
+                <div class="published-projects" id="publishedProjects">مشاريع محفوظة في هذا المتصفح: <b id="publishedProjectsCount">0</b><small>النشر العام لكل زوار الموقع يحتاج خادمًا أو قاعدة بيانات.</small></div>
+            </div>
+
+            <div class="tool-group">
+                <label>خاصية التفكيك (Explode):</label>
+                <button class="action-btn" onclick="toggleExplodeModel()">تفكيك / تجميع المجسم</button>
+            </div>
+
+            <div class="tool-group">
+                <label>لون أرضية البحر:</label>
+                <div class="color-palette">
+                    <div class="color-dot" title="أسود" style="background:#08090b" onclick="changeStudioFloorColor('#08090b')"></div>
+                    <div class="color-dot" title="أسود معدني" style="background:#202326" onclick="changeStudioFloorColor('#202326')"></div>
+                    <div class="color-dot" title="أبيض فضي" style="background:#d8dadd" onclick="changeStudioFloorColor('#d8dadd')"></div>
+                    <div class="color-dot" title="ذهبي خفيف" style="background:#bca56b" onclick="changeStudioFloorColor('#bca56b')"></div>
+                    <input type="color" aria-label="اختيار لون أرضية البحر" value="#101316" onchange="changeStudioFloorColor(this.value)" style="width:36px;height:30px;border:0;background:transparent;cursor:pointer">
+                </div>
+                <small style="color:#9aa4b2">الخلفية تبقى سوداء، ويمكن تغيير لون الأرضية من هنا.</small>
+            </div>
+
+            <div class="tool-group">
+                <label>تلوين المجسم:</label>
+                <div class="color-palette">
+                    <div class="color-dot" style="background: #ff4d4f;" onclick="changeModelColor(0xff4d4f)"></div>
+                    <div class="color-dot" style="background: #52c41a;" onclick="changeModelColor(0x52c41a)"></div>
+                    <div class="color-dot" style="background: #1890ff;" onclick="changeModelColor(0x1890ff)"></div>
+                    <div class="color-dot" style="background: #faad14;" onclick="changeModelColor(0xfaad14)"></div>
+                    <div class="color-dot" style="background: #ffffff;" onclick="changeModelColor(0xffffff)"></div>
+                    <input type="color" id="projectModelColor" value="#80b8ff" aria-label="اختيار أي لون للمجسم" title="اختيار أي لون" oninput="changeModelColor(this.value)">
+                </div>
+            </div>
+
+            <div class="tool-group project-transform-panel">
+                <label>تحريك موضع المجسم</label>
+                <div class="project-transform-grid">
+                    <button class="size-btn" type="button" onclick="moveCurrentModel('x',-0.2)">X −</button>
+                    <button class="size-btn" type="button" onclick="moveCurrentModel('x',0.2)">X +</button>
+                    <button class="size-btn" type="button" onclick="moveCurrentModel('y',0.2)">Y +</button>
+                    <button class="size-btn" type="button" onclick="moveCurrentModel('y',-0.2)">Y −</button>
+                    <button class="size-btn" type="button" onclick="moveCurrentModel('z',0.2)">Z +</button>
+                    <button class="size-btn" type="button" onclick="moveCurrentModel('z',-0.2)">Z −</button>
+                </div>
+                <button class="action-btn" type="button" id="centerStudioModelBtn">توسيط المجسم في المشهد</button>
+                <div class="project-file-help">اسحب بالزر الأيسر لتدوير المجسم. انقر على جزء لتحديده، ثم Alt + سحب لتحريك الجزء وحده. Shift + سحب أو زر الفأرة الأيمن لتحريك المجسم كاملًا. عجلة الماوس للتقريب والإبعاد. الألوان تغيّر الجزء المحدد أو المجسم كاملًا إذا لم تحدد جزءًا.</div>
+            </div>
+
+            <div class="tool-group">
+                <label>الحجم:</label>
+                <div class="size-controls">
+                    <button class="size-btn" onclick="scaleModel(1.4)">تكبير (+)</button>
+                    <button class="size-btn" onclick="scaleModel(0.71)">تصغير (-)</button>
+                </div>
+            </div>
+
+            <div class="tool-group studio-lighting-group">
+                <label>إضاءة الاستوديو:</label>
+                <div class="light-control-row">
+                    <span class="light-name">الرئيسية</span>
+                    <input type="color" value="#ffffff" aria-label="لون الإضاءة الرئيسية" oninput="updateStudioLightColor('key', this.value)">
+                    <input type="range" min="0" max="5" step="0.1" value="2.2" class="range-slider" oninput="updateStudioLight('key', this.value)">
+                </div>
+                <div class="light-control-row">
+                    <span class="light-name">الجانبية</span>
+                    <input type="color" value="#82b8ff" aria-label="لون الإضاءة الجانبية" oninput="updateStudioLightColor('fill', this.value)">
+                    <input type="range" min="0" max="4" step="0.1" value="0.85" class="range-slider" oninput="updateStudioLight('fill', this.value)">
+                </div>
+                <div class="light-control-row">
+                    <span class="light-name">الخلفية</span>
+                    <input type="color" value="#9d7cff" aria-label="لون الإضاءة الخلفية" oninput="updateStudioLightColor('rim', this.value)">
+                    <input type="range" min="0" max="4" step="0.1" value="0.75" class="range-slider" oninput="updateStudioLight('rim', this.value)">
+                </div>
+                <input type="color" value="#ffffff" aria-label="لون الإضاءة المحيطية" class="ambient-color-input" oninput="updateStudioLightColor('ambient', this.value)">
+            </div>
+
+            <div class="tool-group">
+                <label>الحركة:</label>
+                <button class="action-btn" onclick="toggleAutoRotate()">تشغيل / إيقاف الدوران</button>
+            </div>
+        </div>
+
+        <div id="aiStatus" class="ai-status">الاستوديو جاهز</div>
+    </div>
+
+    <!-- السكربت البرمجي الشامل -->
+    <script src="04-studio-and-search.js"></script>
+
+    <script src="05-viewer.js"></script>
+
+
+
+
+
+
+
+
+
+<script src="06-language-engine.js"></script>
+
+
+
+
+<!-- TORYAK v31: published project detail viewer -->
+<div id="projectDetailOverlay" aria-hidden="true">
+  <div class="project-detail-shell">
+    <div class="project-detail-stage" id="projectDetailStage">
+      <div class="project-detail-topbar">
+        <button class="project-detail-close" id="projectDetailClose" type="button">✕ إغلاق</button>
+        <div class="project-detail-status" id="projectDetailStatus">عرض ثلاثي الأبعاد</div>
+      </div>
+      <canvas id="projectDetailCanvas"></canvas>
+      <div class="project-detail-controls">
+        <button id="projectDetailExplode" type="button">تفكيك</button>
+        <button id="projectDetailAssemble" type="button">تجميع</button>
+        <button id="projectDetailReset" type="button">↺ إعادة ضبط</button>
+        <button id="projectDetailDay" type="button">نهار</button>
+        <button id="projectDetailNight" type="button">ليل</button>
+        <button id="projectDetailDownload" type="button">تحميل</button>
+      </div>
+    </div>
+    <aside class="project-detail-sidebar" dir="auto">
+      <h2 id="projectDetailTitle">مشروع</h2>
+      <div class="project-detail-meta" id="projectDetailMeta"></div>
+
+      <div class="project-detail-section">
+        <div class="project-detail-section-title">تقييم المشروع</div>
+        <div class="project-detail-rating" id="projectDetailRating"></div>
+        <div class="project-rating-summary-large" id="projectDetailRatingSummary">لا يوجد تقييم بعد</div>
+      </div>
+
+      <div class="project-detail-section">
+        <div class="project-detail-section-title">تلوين المجسم بالكامل</div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          <input id="projectDetailColor" type="color" value="#6e7d93" title="لون المجسم" style="width:42px;height:34px;padding:2px;border-radius:9px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.05);">
+          <div class="project-detail-swatches" id="projectDetailSwatches"></div>
+        </div>
+      </div>
+
+      <div class="project-detail-section">
+        <div class="project-detail-section-title">الإضاءة والألوان</div>
+        <div class="project-detail-row"><span>رئيسية</span><input id="projectKeyColor" type="color" value="#ffffff"><input id="projectKeyIntensity" type="range" min="0" max="4" step="0.05" value="2.2"></div>
+        <div class="project-detail-row"><span>جانبية</span><input id="projectFillColor" type="color" value="#7fb4ff"><input id="projectFillIntensity" type="range" min="0" max="3" step="0.05" value="0.8"></div>
+        <div class="project-detail-row"><span>خلفية</span><input id="projectRimColor" type="color" value="#ff77d9"><input id="projectRimIntensity" type="range" min="0" max="3" step="0.05" value="1.1"></div>
+        <div class="project-detail-row"><span>محاذاة</span><input id="projectAmbientColor" type="color" value="#9db4d8"><input id="projectAmbientIntensity" type="range" min="0" max="2" step="0.05" value="0.75"></div>
+      </div>
+
+      <div class="project-detail-section">
+        <div class="project-detail-section-title">التعليقات</div>
+        <textarea id="projectCommentInput" class="project-comment-box" placeholder="اكتب تعليقك..."></textarea>
+        <button id="projectCommentPost" class="project-comment-post" type="button">نشر التعليق</button>
+        <div class="project-comments-list" id="projectCommentsList"></div>
+        <div class="project-detail-help">الحركة: سحب بالزر الأيسر للتدوير، زر الفأرة الأيمن للتحريك، وعجلة الفأرة للتقريب والتبعيد.</div>
+      </div>
+    </aside>
+  </div>
+</div>
+<script src="09-v31-project-detail.js"></script>
+<!-- Hidden live canvas removed: the existing visible thumbnail image and card design are unchanged. -->
+
+
+<script src="10-model-release-notifier.js"></script>
+
+<script src="11-welcome-page-js.js"></script>
+
+
+
+
+
+
+<script src="13-shared-gallery-preview-engine.js"></script>
+
+
+<script src="14-studio-recovery.js"></script>
+
+
+
+<script src="15-scientist-studio-bridge.js"></script>
+
+<script src="17-games-behavior.js"></script>
+
+<script src="18-account.js"></script>
+<script type="module" src="19-auth.js"></script>
+
+<script type="module" src="20-tg-cloud.js"></script>
+
+</body>
+</html>
