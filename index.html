@@ -8550,6 +8550,62 @@ async function health(){
 }
 function start(){health();syncAll();setInterval(syncAll,20000);document.addEventListener('visibilitychange',()=>{if(!document.hidden) syncAll();});}
 if(window.__tgEntered) start();else window.addEventListener('tg-entered',start,{once:true});
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+// 1. ضع بيانات مشروعك الصحيحة هنا
+const firebaseConfig = {
+  apiKey: "ضع_مفتاح_API_الخاص_بك_هنا",
+  authDomain: "اسم-مشروعك.firebaseapp.com",
+  projectId: "اسم-مشروعك",
+  storageBucket: "اسم-مشروعك.appspot.com",
+  messagingSenderId: "رقم_المرسل",
+  appId: "معرف_التطبيق"
+};
+
+// تهيئة الاتصال بقاعدة البيانات
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// 2. دالة حفظ ونشر أي مجسم أو بيانات لكي يراها الجميع
+window.publishModel = async function(modelName, modelData) {
+  if (!modelName.trim()) {
+    alert("الرجاء إدخال اسم المجسم");
+    return;
+  }
+  
+  try {
+    await addDoc(collection(db, "public_models"), {
+      name: modelName.trim(),
+      data: modelData,
+      createdAt: Date.now()
+    });
+    alert("تم نشر المجسم بنجاح وأصبح متاحاً للجميع!");
+  } catch (error) {
+    console.error("خطأ في النشر:", error);
+    alert("فشل النشر، تأكد من اتصال الإنترنت وقواعد Firebase.");
+  }
+};
+
+// 3. دالة البحث لكي يجد أي شخص ما تبحث عنه
+window.searchModels = async function(keyword) {
+  try {
+    const querySnapshot = await getDocs(collection(db, "public_models"));
+    const results = [];
+    
+    querySnapshot.forEach((doc) => {
+      const item = doc.data();
+      if (item.name && item.name.toLowerCase().includes(keyword.toLowerCase())) {
+        results.push({ id: doc.id, ...item });
+      }
+    });
+    
+    return results; // هذه هي النتائج التي تطابق بحث المستخدم
+  } catch (error) {
+    console.error("خطأ في البحث:", error);
+    return [];
+  }
+};
 </script>
 
 </body>
